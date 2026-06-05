@@ -62,6 +62,25 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
+    <!-- 1. Seguridad para el Login con Roles -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+<!-- 2. Generación de Reportes en PDF (OpenPDF / iText libre) -->
+<dependency>
+    <groupId>com.github.librepdf</groupId>
+    <artifactId>openpdf</artifactId>
+    <version>2.0.3</version>
+</dependency>
+
+<!-- 3. Generación de Reportes en Excel (Apache POI) -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.2.5</version>
+</dependency>
 </dependencies>
 
 	<build>
