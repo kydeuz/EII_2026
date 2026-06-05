@@ -2,6 +2,8 @@ package com.reservas.sistema_reservas.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,11 +16,15 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @NotNull
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "laboratorio_id")
-    private Laboratorio laboratorio;
+
+
+	@ManyToOne
+	@JoinColumn(name = "laboratorio_id")
+	@NotNull
+	private Laboratorio laboratorio;
 
     private LocalDate fecha;
     private LocalTime horaInicio;

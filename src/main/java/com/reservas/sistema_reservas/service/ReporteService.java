@@ -20,7 +20,7 @@ public class ReporteService {
     private ReservaRepository reservaRepository;
 
     public ByteArrayInputStream generarPdf() {
-        List<Reserva> lista = reservaRepository.findAll();
+    	List<Reserva> lista = reservaRepository.findAllConRelaciones();
         Document document = new Document(PageSize.A4);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -64,7 +64,7 @@ public class ReporteService {
     }
 
     public ByteArrayInputStream generarExcel() {
-        List<Reserva> lista = reservaRepository.findAll();
+    	List<Reserva> lista = reservaRepository.findAllConRelaciones();
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Sheet sheet = workbook.createSheet("Reservas");
             Row header = sheet.createRow(0);
