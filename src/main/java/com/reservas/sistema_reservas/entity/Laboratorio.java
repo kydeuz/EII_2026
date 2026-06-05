@@ -16,4 +16,7 @@ public class Laboratorio {
     private String nombre;
     private String ubicacion;
     private Integer capacidad;
+    
+    public String getNombre() { return nombre; }
+    
 }

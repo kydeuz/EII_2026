@@ -52,4 +52,8 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
                                 @Param("laboratorioId") Long laboratorioId,
                                 @Param("fecha") LocalDate fecha,
                                 Pageable pageable);
+    
+    @Query("SELECT r FROM Reserva r JOIN FETCH r.usuario JOIN FETCH r.laboratorio")
+    List<Reserva> findAllConRelaciones();
+    
 }
