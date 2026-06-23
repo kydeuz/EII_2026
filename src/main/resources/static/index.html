@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Sistema de Reservas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5dc; /* Crema */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 2rem;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            width: 100%;
+            max-width: 650px;
+        }
+        h1 {
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 2rem;
+        }
+        #nombreUsuario {
+            color: #000;
+            background: #f5f5dc;
+            padding: 0.2rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        /* Grid de tarjetas */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: #ccc;
+        }
+        .card .icono {
+            font-size: 2.5rem;
+        }
+        .card .titulo {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .card .subtitulo {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Tarjeta administrativa (opcional estilo diferente) */
+        .card.admin {
+            background-color: #f0f0e0;
+            border-color: #ddd;
+        }
+
+        /* Botones secundarios (PDF y salir) */
+        .acciones-secundarias {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .btn-secundario {
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-secundario:hover {
+            background-color: #333;
+        }
+
+        /* Responsive: una columna en pantallas pequeñas */
+        @media (max-width: 480px) {
+            .grid-menu {
+                grid-template-columns: 1fr;
+            }
+            .acciones-secundarias {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido <span id="nombreUsuario"></span></h1>
+
+        <!-- Menú principal en tarjetas -->
+        <div class="grid-menu">
+            <a href="reserva.html" class="card">
+                <span class="icono">📅</span>
+                <span class="titulo">Nueva Reserva</span>
+                <span class="subtitulo">Reserva un laboratorio</span>
+            </a>
+            <a href="historial.html" class="card">
+                <span class="icono">📋</span>
+                <span class="titulo">Historial</span>
+                <span class="subtitulo">Tus reservas y estado</span>
+            </a>
+            <a href="laboratorio.html" id="linkNuevoLab" class="card admin" style="display:none;">
+                <span class="icono">🔬</span>
+                <span class="titulo">Nuevo Laboratorio</span>
+                <span class="subtitulo">Administrar laboratorios</span>
+            </a>
+            <a href="usuarios.html" id="linkGestionUsuarios" class="card admin" style="display:none;">
+                <span class="icono">👥</span>
+                <span class="titulo">Gestión de Usuarios</span>
+                <span class="subtitulo">Administrar cuentas</span>
+            </a>
+        </div>
+
+        <!-- Acciones secundarias -->
+        <div class="acciones-secundarias">
+            <button id="btnExportarPdf" class="btn-secundario">
+                <span>📄</span> Exportar PDF
+            </button>
+            <button id="btnLogout" class="btn-secundario">
+                <span>🚪</span> Cerrar sesión
+            </button>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script>
+        async function exportarPdf() {
+            try {
+                const response = await apiFetch('/api/reportes/pdf');
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'reporte.pdf';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (err) {
+                alert('No se pudo descargar el PDF: ' + err.message);
+            }
+        }
+
+        async function cargarDashboard() {
+            try {
+                const response = await apiFetch('/api/dashboard');
+                const data = await response.json();
+                document.getElementById('nombreUsuario').textContent = 
+                    localStorage.getItem('usuarioNombre') || 'Invitado';
+            } catch (error) {
+                alert('Sesión expirada o no válida. Redirigiendo al login.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Asignar eventos
+        document.getElementById('btnExportarPdf').addEventListener('click', exportarPdf);
+        document.getElementById('btnLogout').addEventListener('click', logout);
+
+        // Mostrar opciones según rol
+        const rol = localStorage.getItem('usuarioRol');
+        if (rol === 'ADMIN' || rol === 'DOCENTE') {
+            document.getElementById('linkNuevoLab').style.display = 'flex';
+        }
+        if (rol === 'ADMIN') {
+            document.getElementById('linkGestionUsuarios').style.display = 'flex';
+        }
+
+        cargarDashboard();
+    </script>
+</body>
+</html>

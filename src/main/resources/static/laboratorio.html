@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Laboratorios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5dc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h2 { text-align: center; margin-bottom: 1.5rem; color: #333; }
+        .campo {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem 0;
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #333; }
+        button.secundario {
+            background-color: #666;
+        }
+        button.secundario:hover { background-color: #555; }
+
+        #mensaje {
+            color: green;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .error { color: red; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        .acciones button {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        /* Ocultar el botón cancelar por defecto */
+        #btnCancelarEdicion { display: none; background-color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gestión de Laboratorios</h2>
+
+        <!-- Formulario de creación / edición -->
+        <form id="labForm">
+            <input type="hidden" id="editId"> <!-- Guarda el ID cuando se edita -->
+            <div class="campo">
+                <input type="text" id="nombre" placeholder="Nombre del laboratorio" required>
+            </div>
+            <div class="campo">
+                <input type="text" id="ubicacion" placeholder="Ubicación" required>
+            </div>
+            <div class="campo">
+                <input type="number" id="capacidad" placeholder="Capacidad" required min="1">
+            </div>
+			<button type="submit" id="btnCrear">Crear Laboratorio</button>
+			<button type="button" id="btnActualizar" style="display:none;">Actualizar Laboratorio</button>
+			<button type="button" id="btnCancelarEdicion" class="secundario">Cancelar edición</button>
+        </form>
+        <p id="mensaje"></p>
+
+        <!-- Tabla de laboratorios -->
+        <table id="tablaLaboratorios">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ubicación</th>
+                    <th>Capacidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="5">Cargando...</td></tr>
+            </tbody>
+        </table>
+
+        <a class="volver" href="index.html">← Volver al inicio</a>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/laboratorio.js"></script>
+</body>
+</html>

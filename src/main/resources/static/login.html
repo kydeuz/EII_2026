@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5dc; /* Crema / amarillo claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .campo {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .enlaces {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .enlaces a {
+            color: #555;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .enlaces a:hover {
+            text-decoration: underline;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        #mensajeError {
+            color: red;
+            margin-bottom: 1rem;
+            display: none;
+        }
+		
+		#formOlvido {
+		    display: none;               
+		    margin-top: 1rem;
+		    border-top: 1px solid #eee;
+		    padding-top: 1rem;
+		}
+
+		#formOlvido button {
+		    background-color: #444;
+			
+		    color: white;
+		    border: none;
+		    border-radius: 6px;
+		    padding: 10px;
+		    font-size: 1rem;
+		    cursor: pointer;
+		    width: 100%;
+		    margin-top: 0.5rem;
+		}
+
+		#formOlvido .btn-volver {
+		    background-color: #444;
+		    color: white !important;
+		    border: none;
+		    border-radius: 6px;
+		    padding: 10px;
+		    font-size: 1rem;
+		    cursor: pointer;
+		    width: 100%;
+		    margin-top: 0.5rem;
+		}
+
+		#formOlvido .btn-volver {
+		    background-color: #666;
+		}
+
+		
+		#formOlvido .btn-volver:hover {
+		    background-color: #333;
+		}
+
+		#formOlvido .btn-volver:hover {
+		    background-color: #555;
+		}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <!-- Formulario de inicio de sesión normal -->
+        <form id="loginForm">
+            <div class="campo">
+                <input type="email" id="email" placeholder="Correo" required>
+            </div>
+            <div class="campo">
+                <input type="password" id="password" placeholder="Contraseña" required>
+            </div>
+
+            <div class="enlaces">
+                <a href="registro.html">No tienes una cuenta?</a>
+                <a id="linkOlvido" href="#">Olvidó su contraseña?</a>
+            </div>
+
+            <button type="submit">Iniciar sesión</button>
+            <p id="mensajeError"></p>
+        </form>
+
+        <!-- Formulario para restablecer contraseña (MVP) -->
+        <div id="formOlvido">
+            <h3>Restablecer contraseña</h3>
+            <div class="campo">
+                <input type="email" id="emailReset" placeholder="Correo" required>
+            </div>
+            <div class="campo">
+                <input type="password" id="nuevaPassword" placeholder="Nueva contraseña" required>
+            </div>
+            <button id="btnReset" type="button">Actualizar contraseña</button>
+            <button class="btn-volver" id="btnVolver">← Volver al inicio</button>
+            <p id="mensajeReset"></p>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>

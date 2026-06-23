@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Reservas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5dc; /* Crema */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1000px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        #filtros {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        #filtros input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        #filtros button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        #filtros button:hover {
+            background-color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        #paginacion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        #paginacion button {
+            padding: 8px 16px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        #paginacion button:hover {
+            background-color: #333;
+        }
+        #paginacion span {
+            font-weight: bold;
+        }
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .acciones button {
+            padding: 5px 10px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .acciones button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Historial de Reservas</h2>
+        <div id="filtros">
+            <input type="number" id="filtroUsuario" placeholder="ID Usuario (opcional)">
+            <input type="number" id="filtroLab" placeholder="ID Lab (opcional)">
+            <input type="date" id="filtroFecha">
+            <button id="btnFiltrar">Filtrar</button>
+        </div>
+
+        <table id="tablaHistorial">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Laboratorio</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="paginacion">
+            <button id="btnAnterior">Anterior</button>
+            <span id="paginaActual">0</span>
+            <button id="btnSiguiente">Siguiente</button>
+        </div>
+
+        <a class="volver" href="index.html">← Volver al inicio</a>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/historial.js"></script>
+</body>
+</html>

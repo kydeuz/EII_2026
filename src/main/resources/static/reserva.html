@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f5dc; /* Crema / amarillo claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .campo {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 12px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem 0;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        #btnVerificar {
+            background-color: #444;
+        }
+        #btnVerificar:hover {
+            background-color: #333;
+        }
+        #disponibilidadMsg {
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+        }
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nueva Reserva</h2>
+        <form id="reservaForm">
+            <div class="campo">
+                <label>Laboratorio:</label>
+                <select id="laboratorio" required></select>
+            </div>
+            <div class="campo">
+                <label>Fecha (YYYY-MM-DD):</label>
+                <input type="date" id="fecha" required>
+            </div>
+            <div class="campo">
+                <label>Hora inicio (HH:MM):</label>
+                <input type="time" id="horaInicio" required>
+            </div>
+            <div class="campo">
+                <label>Hora fin (HH:MM):</label>
+                <input type="time" id="horaFin" required>
+            </div>
+
+            <button type="button" id="btnVerificar">Verificar disponibilidad</button>
+            <span id="disponibilidadMsg"></span>
+
+            <button type="submit" id="btnReservar" disabled>Confirmar reserva</button>
+        </form>
+
+        <a class="volver" href="index.html">← Volver al inicio</a>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/reserva.js"></script>
+</body>
+</html>

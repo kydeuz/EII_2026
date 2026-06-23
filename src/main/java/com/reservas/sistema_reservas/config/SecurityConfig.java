@@ -48,14 +48,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/reset-password").permitAll()
                 .requestMatchers("/api/reportes/**").hasAnyRole("ADMIN", "DOCENTE")
                 .requestMatchers(HttpMethod.POST, "/api/reservas").hasAnyRole("ALUMNO", "DOCENTE", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/historial").hasAnyRole("ALUMNO", "DOCENTE", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/laboratorios").hasAnyRole("ADMIN", "DOCENTE")
+                // Gestión de usuarios solo ADMIN
+                .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

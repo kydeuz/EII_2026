@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Prueba de endpoints</h2>
+  <button onclick="exportarPdf()">Exportar PDF</button>
+  <br><br>
+  <input id="reservaId" type="number" placeholder="ID de reserva" value="1">
+  <button onclick="cancelarReserva(document.getElementById('reservaId').value)">Cancelar</button>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/reportes.js"></script>
+  <script src="/js/reservas.js"></script>
+</body>
+</html>
