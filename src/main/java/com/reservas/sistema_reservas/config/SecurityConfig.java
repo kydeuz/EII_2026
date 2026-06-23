@@ -1,18 +1,5 @@
 package com.reservas.sistema_reservas.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +44,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/reservas").hasAnyRole("ALUMNO", "DOCENTE", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/historial").hasAnyRole("ALUMNO", "DOCENTE", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/laboratorios").hasAnyRole("ADMIN", "DOCENTE")
+                .requestMatchers(HttpMethod.PUT, "/api/laboratorios/**").hasAnyRole("ADMIN", "DOCENTE")
+                .requestMatchers(HttpMethod.DELETE, "/api/laboratorios/**").hasAnyRole("ADMIN", "DOCENTE")
                 // Gestión de usuarios solo ADMIN
                 .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasRole("ADMIN")
@@ -64,7 +53,6 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }
